@@ -15,7 +15,7 @@ function fetchProduct(){
                 <td>${jsonResponse.id}</td>
                 <td>${jsonResponse.title}</td>
                 <td>${jsonResponse.price}</td>`
-            product?.innerHTML = product?.innerHTML+listItem
+            product?.innerHTML =+ listItem
         }
     }
 
