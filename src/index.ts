@@ -1,7 +1,7 @@
 function fetchProduct(){
-    let product = document.getElementById("product")
-    var inputElement = document.getElementById('myInput');
-    var inputValue = inputElement.value
+    let table = (document.getElementById("table") as HTMLElement)
+    let inputValue = (document.getElementById("myInput") as HTMLInputElement).value
+    
    
     let xhr = new XMLHttpRequest();
     const url = `https://dummyjson.com/products/${inputValue}`
@@ -12,13 +12,27 @@ function fetchProduct(){
             const response = xhr.responseText;
             const jsonResponse = JSON.parse(response);
             let listItem = `
-                <td>${jsonResponse.id}</td>
-                <td>${jsonResponse.title}</td>
-                <td>${jsonResponse.price}</td>`
-            product?.innerHTML =+ listItem
-        }
+                <tr>
+                    <td>${jsonResponse.id}</td>
+                    <td>${jsonResponse.title}</td>
+                    <td>${jsonResponse.price}</td>
+                    <td><button class="button">Delete</button></td>
+                </tr>
+                `
+            table.innerHTML = table.innerHTML + listItem
+            let deleteButtons = (document.getElementsByClassName("button"))
+            for(let i =0; i<deleteButtons.length ; i++){
+                deleteButtons[i].addEventListener("click", function(){
+                    const button = deleteButtons[i] as HTMLElement; 
+                    const row = button.parentNode?.parentNode as HTMLElement | null
+                   if (row) {
+                       row.parentNode?.removeChild(row); 
+                   }
+                    
+                })
+            }
+        
     }
-
+}
     xhr.send()
-
 }
